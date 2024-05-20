@@ -1,0 +1,60 @@
+.action_list{
+    padding: 0;
+    display: flex;
+    list-style: none;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+}
+.actionList{
+    display: flex;
+    justify-content: center;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+.actionList li{
+    margin: 0 4px;
+}
+.actionList li .bx-trash,
+.actionList li .bx-edit-alt{
+    font-size: 22px;
+    cursor: pointer;
+}
+.color_div{
+    width: 16px;
+    height: 16px;
+    border-radius: 50px;
+    display: block;
+}
+.ck .ck-editor__main{
+  height: 150px;
+}
+.ck-rounded-corners .ck.ck-editor__main>.ck-editor__editable, .ck.ck-editor__main>.ck-editor__editable.ck-rounded-corners {
+    height: 150px;
+}
+.ck .ck-powered-by{
+    display: none;
+}
+.select2-container--default .select2-selection--single {
+    border: 1px solid #d9dee3 !important;
+}
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+    color: #697a8d !important;
+    line-height: 36px !important;
+}
+.select2-container .select2-selection--single {
+    height: 38px !important;
+}
+.select2-search__field:focus{
+    outline: none;
+}
+.size_field,
+.color_field{
+    display: none;
+}
+.delete_image_btn{
+    position: absolute;
+    top: -5px;
+    right: -2px;
+}
