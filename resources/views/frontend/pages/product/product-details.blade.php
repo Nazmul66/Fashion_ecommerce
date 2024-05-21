@@ -117,12 +117,13 @@
                                         <option value="" selected disabled>Select a color</option>
 
                                         @if( !empty($cart) ) 
-                                            @foreach (App\Models\ProductColor::getAllColorRecord($singleProduct->id) as $colors)
-                                                <option value="{{ $colors->id }}" @if( $cart->color_id == $colors->id ) selected @endif>{{ $colors->color_name }}</option>
+                                            @foreach (App\Models\ProductColor::getAllColorRecord($singleProduct->id) as $color)
+                                              {{ $color->count() }}
+                                                <option value="{{ $color->color_id }}" @if( $cart->color_id == $color->id ) selected @endif>{{ $color->color_name }}</option>
                                             @endforeach
                                         @else
-                                            @foreach (App\Models\ProductColor::getAllColorRecord($singleProduct->id) as $colors)
-                                                <option value="{{ $colors->id }}">{{ $colors->color_name }}</option>
+                                            @foreach (App\Models\ProductColor::getAllColorRecord($singleProduct->id) as $color)
+                                                <option value="{{ $color->color_id }}">{{ $color->color_name }}</option>
                                             @endforeach
                                         @endif 
 

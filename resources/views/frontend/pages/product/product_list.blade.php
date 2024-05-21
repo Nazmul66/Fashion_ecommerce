@@ -29,7 +29,7 @@
                             {{ $allProduct->subCat_name }}
                         </a>
                     </div><!-- End .product-cat -->
-                    <h3 class="product-title"><a href="{{ route('get.category', $allProduct->slug) }}">{{ $allProduct->title }}</a></h3><!-- End .product-title -->
+                    <h3 class="product-title"><a href="{{ route('product.details', $allProduct->slug) }}">{{ $allProduct->title }}</a></h3><!-- End .product-title -->
                     <div class="product-price">
                         ${{ number_format($allProduct->selling_price, 2) }}
                     </div><!-- End .product-price -->

@@ -1,3 +1,9 @@
+@php
+   if( Auth::check() ){
+       $cart_count =  App\Models\Cart::where('order_id', NULL)->where('user_id', Auth::user()->id)->get();
+   }
+@endphp
+
 <header class="header">
     <div class="header-top">
         <div class="container">
@@ -139,9 +145,11 @@
                 </div><!-- End .header-search -->
 
                 <div class="dropdown cart-dropdown">
-                    <a href="#" class="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">
+                    <a href="{{ url('cart-show') }}" class="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">
                         <i class="icon-shopping-cart"></i>
-                        <span class="cart-count">2</span>
+                        <span class="cart-count" id="cart-count">
+                             0
+                        </span>
                     </a>
 
                     <div class="dropdown-menu dropdown-menu-right">
@@ -194,7 +202,7 @@
                         </div><!-- End .dropdown-cart-total -->
 
                         <div class="dropdown-cart-action">
-                            <a href="cart.html" class="btn btn-primary">View Cart</a>
+                            <a href="{{ url('/cart-show') }}" class="btn btn-primary">View Cart</a>
                             <a href="checkout.html" class="btn btn-outline-primary-2"><span>Checkout</span><i class="icon-long-arrow-right"></i></a>
                         </div><!-- End .dropdown-cart-total -->
                     </div><!-- End .dropdown-menu -->
@@ -204,5 +212,25 @@
     </div><!-- End .header-middle -->
 </header>
 
+
+
+@push('scripts')
+    <script>
+        $(document).ready(function(){
+            $.ajax({
+                method: "GET",
+                url: "{{ route('getCart.data') }}",
+                dataType: "json",
+                success: function(res){
+                    // console.log(res.success.length);
+                    $('#cart-count').html(res.success.length);
+                },
+                error: function (err){
+                   console.log(err);
+                }
+            })
+        })
+    </script>
+@endpush
 
 

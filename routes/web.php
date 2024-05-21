@@ -113,10 +113,22 @@ use App\Http\Controllers\Frontend\CartController;
 
 Route::get('/', [FrontendController::class, 'home'])->name('home');
 Route::post('/get-product-filter', [ProductsController::class, 'getProductFilter'])->name('get.product.filter');
-Route::get('/{catslug?}/{subslug?}', [ProductsController::class, 'getCategory'])->name('get.category');
+Route::get('/product/{catslug?}/{subslug?}', [ProductsController::class, 'getCategory'])->name('get.category');
 
+// product details page
+Route::get('/product-details/{slug}', [ProductsController::class, 'productDetails'])->name('product.details');
 
+// add to cart
 Route::post('/product/add-to-cart', [CartController::class, 'productCart'])->name('product.cart');
+// Route::get('/product/get-cart', [CartController::class, 'getCartData'])->name('get.cart.data');
+
+// view cart
+Route::get('cart-show', [CartController::class, 'cartShow']);
+
+
+// api call
+Route::get('getCart-data', [CartController::class, 'getCartData'])->name("getCart.data");
+Route::post('/cart/update-quantity', [CartController::class, 'updateCartQuantity'])->name('cart.updateQuantity');
 
 
 

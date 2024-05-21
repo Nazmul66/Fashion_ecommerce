@@ -8,6 +8,7 @@ use App\Models\Product;
 use App\Models\Product_size;
 use App\Models\Cart;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class CartController extends Controller
 {
@@ -142,62 +143,73 @@ class CartController extends Controller
                         $cart->product_price   = $total_price;
                     }
 
+                // dd($cart);
                 $cart->save();
             }
 
-           return redirect()->back();
+           return redirect()->route('cart.show');
 
         }
 
     }
 
 
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function cartShow()
     {
-        //
+        $userCartData = Cart::getCartUserData();
+        return view('frontend.pages.cart.cart', compact('userCartData'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+
+    public function updateCartQuantity(Request $request)
     {
-        //
+        $productId = $request->input('product_id');
+        $quantity = $request->input('quantity');
+    
+        // Find the cart item for the current user
+        $cartItem = Cart::where('order_id', NULL)
+                        ->where('user_id', Auth::user()->id)
+                        ->where('product_id', $productId)
+                        ->first();
+    
+        if ( $cartItem ) {
+            // Update the quantity
+            $cartItem->product_qty = $quantity;
+            $cartItem->save();
+    
+            // Calculate the new totals
+            $cartTotal = Cart::select('products.*', 'carts.product_price as product_price', 'carts.product_qty as product_qty', 'carts.product_id as product_id')
+                             ->join('products', 'products.id', '=' , 'carts.product_id')
+                             ->where('order_id', NULL)
+                             ->where('user_id', Auth::user()->id)
+                             ->sum(DB::raw('product_price * product_qty'));
+    
+            return response()->json([
+                'status' => true,
+                'newItemTotal' => $cartItem->product_price * $cartItem->product_qty,
+                'cartTotal' => intval($cartTotal),
+            ]);
+        }
+        else{
+            return response()->json(['status' => false, 'message' => 'Cart item not found'], 404);
+        }
+    
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function getCartData(Request $request)
     {
-        //
+        $cart = Cart::getCartUserData();
+
+        return response()->json([
+            'status' => true,
+            'success' => $cart,
+        ]);
     }
 }

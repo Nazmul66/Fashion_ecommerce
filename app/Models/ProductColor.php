@@ -24,7 +24,7 @@ class ProductColor extends Model
 
     static public function getAllColorRecord($product_id)
     {
-       return self::select('colors.name as color_name', 'colors.id as color_id' )
+       return self::select('colors.name as color_name', 'product_colors.color_id as color_id' )
                     ->join('colors', 'colors.id', '=' , 'product_colors.color_id')
                     ->where('product_id', $product_id)
                     ->get();
