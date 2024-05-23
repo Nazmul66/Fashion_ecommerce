@@ -118,17 +118,12 @@ Route::get('/product/{catslug?}/{subslug?}', [ProductsController::class, 'getCat
 // product details page
 Route::get('/product-details/{slug}', [ProductsController::class, 'productDetails'])->name('product.details');
 
-// add to cart
+// for cart controller
 Route::post('/product/add-to-cart', [CartController::class, 'productCart'])->name('product.cart');
-// Route::get('/product/get-cart', [CartController::class, 'getCartData'])->name('get.cart.data');
-
-// view cart
-Route::get('cart-show', [CartController::class, 'cartShow']);
-
-
-// api call
-Route::get('getCart-data', [CartController::class, 'getCartData'])->name("getCart.data");
-Route::post('/cart/update-quantity', [CartController::class, 'updateCartQuantity'])->name('cart.updateQuantity');
+Route::get('cart-show', [CartController::class, 'cartShow'])->name('cart.show');
+Route::get('getCart-data', [CartController::class, 'getCartData'])->name("getCart.data");  // API call
+Route::post('/cart/update-quantity', [CartController::class, 'updateCartQuantity'])->name('cart.updateQuantity'); // API call
+Route::post('/delete/cart', [CartController::class, 'deleteCart'])->name('delete.cart'); // API call
 
 
 

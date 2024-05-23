@@ -2,6 +2,15 @@
    if( Auth::check() ){
        $cart_count =  App\Models\Cart::where('order_id', NULL)->where('user_id', Auth::user()->id)->get();
    }
+
+   $carts = App\Models\Cart::getCartUserData();
+
+   if( $carts ){
+        $total_cart_sum = 0; 
+        foreach( $carts as $cartData ){
+            $total_cart_sum += $cartData->price * $cartData->qty;
+        }
+   }
 @endphp
 
 <header class="header">
@@ -153,28 +162,14 @@
                     </a>
 
                     <div class="dropdown-menu dropdown-menu-right">
-                        <div class="dropdown-cart-products">
-                            <div class="product">
-                                <div class="product-cart-details">
-                                    <h4 class="product-title">
-                                        <a href="product.html">Beige knitted elastic runner shoes</a>
-                                    </h4>
+                        <div class="dropdown-cart-products" id="product_show">
 
-                                    <span class="cart-product-info">
-                                        <span class="cart-product-qty">1</span>
-                                        x $84.00
-                                    </span>
-                                </div><!-- End .product-cart-details -->
+                            {{-- @foreach ( $carts as $cart) --}}
 
-                                <figure class="product-image-container">
-                                    <a href="product.html" class="product-image">
-                                        <img src="{{ asset('public/frontend/assets/images/products/cart/product-1.jpg') }}" alt="product">
-                                    </a>
-                                </figure>
-                                <a href="#" class="btn-remove" title="Remove Product"><i class="icon-close"></i></a>
-                            </div><!-- End .product -->
+                            {{-- @endforeach --}}
 
-                            <div class="product">
+
+                            {{-- <div class="product">
                                 <div class="product-cart-details">
                                     <h4 class="product-title">
                                         <a href="product.html">Blue utility pinafore denim dress</a>
@@ -192,20 +187,21 @@
                                     </a>
                                 </figure>
                                 <a href="#" class="btn-remove" title="Remove Product"><i class="icon-close"></i></a>
-                            </div><!-- End .product -->
+                            </div><!-- End .product --> --}}
                         </div><!-- End .cart-product -->
 
                         <div class="dropdown-cart-total">
                             <span>Total</span>
 
-                            <span class="cart-total-price">$160.00</span>
+                            <span class="cart-total-price">${{ number_format($total_cart_sum, 2) }}</span>
                         </div><!-- End .dropdown-cart-total -->
 
                         <div class="dropdown-cart-action">
                             <a href="{{ url('/cart-show') }}" class="btn btn-primary">View Cart</a>
                             <a href="checkout.html" class="btn btn-outline-primary-2"><span>Checkout</span><i class="icon-long-arrow-right"></i></a>
-                        </div><!-- End .dropdown-cart-total -->
-                    </div><!-- End .dropdown-menu -->
+                        </div>
+
+                    </div>
                 </div><!-- End .cart-dropdown -->
             </div><!-- End .header-right -->
         </div><!-- End .container -->
@@ -217,18 +213,89 @@
 @push('scripts')
     <script>
         $(document).ready(function(){
-            $.ajax({
+            
+            function headerCart(){
+                $.ajax({
                 method: "GET",
                 url: "{{ route('getCart.data') }}",
                 dataType: "json",
                 success: function(res){
-                    // console.log(res.success.length);
+                    console.log(res.success);
                     $('#cart-count').html(res.success.length);
-                },
-                error: function (err){
-                   console.log(err);
-                }
+
+                    var carts = '';
+                    var totalAmount = 0;
+
+                    if (res.success.length > 0) { 
+                        $.each(res.success, function(index, item){
+                            totalAmount += item.price * item.qty;
+
+                            carts += `
+                                <div class="product">
+                                    <div class="product-cart-details">
+                                        <h4 class="product-title">
+                                            <a href="{{ url('/product-details/`+item.slug+`') }}">`+ item.title +`</a>
+                                        </h4>
+
+                                        <span class="cart-product-info">
+                                            <span class="cart-product-qty">`+ item.qty +`</span>
+                                            x $ `+ item.price.toFixed(2) +`
+                                        </span>
+                                    </div>
+
+                                    <figure class="product-image-container">
+                                        <a href="{{ url('/product-details/`+ item.slug +`') }} " class="product-image">
+                                            <img src="`+ item.thumbnail +`" alt="product">
+                                        </a>
+                                    </figure>
+                                    <button class="btn-remove" data-id="`+item.cart_id +` title="Remove Product"><i class="icon-close"></i></button>
+                                </div>`;
+                            });
+                        }  
+                        else {
+                            carts = `
+                            <div class="alert alert-danger text-center" role="alert">
+                                There is no data here!
+                            </div>`;
+
+                            totalAmount = 0;
+                        }
+
+                      $('#product_show').html(carts);
+                      $('#cart-total-price').html('$' + totalAmount.toFixed(2));
+                    },
+                    
+                    error: function (err){
+                    console.log(err);
+                    }
+              })
+            }
+
+            // initially data show
+            headerCart();
+
+
+            // delete cart data
+            $(document).on('click', '.btn-remove', function(){
+                var id = $(this).data('id');
+
+                 $.ajax({
+                     method: "POST",
+                     url: "{{ route('delete.cart') }}",
+                     data: { id: id },
+                     dataType: "json",
+                     success: function(data){
+                        console.log(data);
+
+                        // cart_section_data();
+                        headerCart();
+                     },
+                     error: function(err){
+                        console.log(err);
+                     }
+               })
             })
+
         })
     </script>
 @endpush

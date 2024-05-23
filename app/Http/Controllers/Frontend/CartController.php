@@ -186,11 +186,18 @@ class CartController extends Controller
                              ->where('order_id', NULL)
                              ->where('user_id', Auth::user()->id)
                              ->sum(DB::raw('product_price * product_qty'));
+
+            $cartQty = Cart::select('products.*', 'carts.product_price as product_price', 'carts.product_qty as product_qty', 'carts.product_id as product_id')
+                             ->join('products', 'products.id', '=' , 'carts.product_id')
+                             ->where('order_id', NULL)
+                             ->where('user_id', Auth::user()->id)
+                             ->value('product_qty');
     
             return response()->json([
                 'status' => true,
                 'newItemTotal' => $cartItem->product_price * $cartItem->product_qty,
                 'cartTotal' => intval($cartTotal),
+                'quantity' => $cartQty,
             ]);
         }
         else{
@@ -211,5 +218,18 @@ class CartController extends Controller
             'status' => true,
             'success' => $cart,
         ]);
+    }
+
+
+    public function deleteCart(Request $request)
+    {
+    //    dd($request->id);
+          $cart = Cart::find($request->id);
+
+          $cart->delete();
+
+          return response()->json([
+              'status' => 'success'
+          ]);
     }
 }

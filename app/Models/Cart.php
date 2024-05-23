@@ -22,10 +22,12 @@ class Cart extends Model
 
     static public function getCartUserData()
     {
-        return self::select('products.*', 'carts.product_price as price', 'carts.product_qty as qty', 'carts.product_id as product_id')
-                    ->join('products', 'products.id', '=' , 'carts.product_id')
-                    ->where('order_id', NULL)
-                    ->where('user_id', Auth::user()->id)
-                    ->get();
+        if( Auth::check() ){
+            return self::select('products.*', 'carts.id as cart_id', 'carts.product_price as price', 'carts.product_qty as qty', 'carts.product_id as product_id')
+            ->join('products', 'products.id', '=' , 'carts.product_id')
+            ->where('order_id', NULL)
+            ->where('user_id', Auth::user()->id)
+            ->get();
+        }
     }
 }
