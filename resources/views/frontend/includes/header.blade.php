@@ -164,6 +164,12 @@
                     <div class="dropdown-menu dropdown-menu-right">
                         <div class="dropdown-cart-products" id="product_show">
 
+                            @if ( !$carts ) 
+                                <div class="alert alert-danger text-center" role="alert">
+                                    There is no data here!
+                                </div>
+                            @endif
+
                             {{-- @foreach ( $carts as $cart) --}}
 
                             {{-- @endforeach --}}
@@ -192,8 +198,10 @@
 
                         <div class="dropdown-cart-total">
                             <span>Total</span>
-
-                            <span class="cart-total-price">${{ number_format($total_cart_sum, 2) }}</span>
+                            
+                            <span class="cart-total-price"> 
+                                @if ( !empty($carts) ) ${{ number_format($total_cart_sum, 2) }}@else $0.00 @endif
+                            </span>
                         </div><!-- End .dropdown-cart-total -->
 
                         <div class="dropdown-cart-action">
@@ -214,13 +222,12 @@
     <script>
         $(document).ready(function(){
             
-            function headerCart(){
                 $.ajax({
                 method: "GET",
                 url: "{{ route('getCart.data') }}",
                 dataType: "json",
                 success: function(res){
-                    console.log(res.success);
+                    // console.log(res.success);
                     $('#cart-count').html(res.success.length);
 
                     var carts = '';
@@ -234,7 +241,7 @@
                                 <div class="product">
                                     <div class="product-cart-details">
                                         <h4 class="product-title">
-                                            <a href="{{ url('/product-details/`+item.slug+`') }}">`+ item.title +`</a>
+                                            <a href="{{ url('/product-details/`+ item.slug +`') }}">`+ item.title +`</a>
                                         </h4>
 
                                         <span class="cart-product-info">
@@ -245,10 +252,10 @@
 
                                     <figure class="product-image-container">
                                         <a href="{{ url('/product-details/`+ item.slug +`') }} " class="product-image">
-                                            <img src="`+ item.thumbnail +`" alt="product">
+                                            <img src="{{ asset('`+ item.thumbnail +`') }}" alt="product">
                                         </a>
                                     </figure>
-                                    <button class="btn-remove" data-id="`+item.cart_id +` title="Remove Product"><i class="icon-close"></i></button>
+                                    <a href="{{ url('/delete/cart/`+ item.cart_id +`') }}" data-id="`+ item.cart_id +`" class="btn-remove" title="Remove Product"><i class="icon-close"></i></button>
                                 </div>`;
                             });
                         }  
@@ -261,43 +268,16 @@
                             totalAmount = 0;
                         }
 
+
                       $('#product_show').html(carts);
-                      $('#cart-total-price').html('$' + totalAmount.toFixed(2));
+                        // $('#cart-total-price').html('$' + totalAmount.toFixed(2));
                     },
                     
                     error: function (err){
                     console.log(err);
                     }
               })
-            }
-
-            // initially data show
-            headerCart();
-
-
-            // delete cart data
-            $(document).on('click', '.btn-remove', function(){
-                var id = $(this).data('id');
-
-                 $.ajax({
-                     method: "POST",
-                     url: "{{ route('delete.cart') }}",
-                     data: { id: id },
-                     dataType: "json",
-                     success: function(data){
-                        console.log(data);
-
-                        // cart_section_data();
-                        headerCart();
-                     },
-                     error: function(err){
-                        console.log(err);
-                     }
-               })
-            })
-
         })
     </script>
 @endpush
-
 

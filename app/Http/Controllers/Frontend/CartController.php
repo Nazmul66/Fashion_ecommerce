@@ -221,15 +221,15 @@ class CartController extends Controller
     }
 
 
-    public function deleteCart(Request $request)
+    public function deleteCart(Request $request, $id)
     {
-    //    dd($request->id);
-          $cart = Cart::find($request->id);
+        // dd($id);
+        $cart = Cart::find($id);
+        // dd($cart);
 
-          $cart->delete();
+        $cart->delete();
 
-          return response()->json([
-              'status' => 'success'
-          ]);
+        return redirect()->back();
+
     }
 }

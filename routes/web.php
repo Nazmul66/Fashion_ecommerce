@@ -123,7 +123,7 @@ Route::post('/product/add-to-cart', [CartController::class, 'productCart'])->nam
 Route::get('cart-show', [CartController::class, 'cartShow'])->name('cart.show');
 Route::get('getCart-data', [CartController::class, 'getCartData'])->name("getCart.data");  // API call
 Route::post('/cart/update-quantity', [CartController::class, 'updateCartQuantity'])->name('cart.updateQuantity'); // API call
-Route::post('/delete/cart', [CartController::class, 'deleteCart'])->name('delete.cart'); // API call
+Route::get('/delete/cart/{id}', [CartController::class, 'deleteCart'])->name('delete.cart'); // API call
 
 
 

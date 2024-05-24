@@ -51,7 +51,13 @@
                             </tr>
                         </thead>
 
-                        <tbody id='cart_show'>     
+                        <tbody id='cart_show'>    
+                            
+                            @if( !$userCartData )
+                                <div class="alert alert-danger text-center" role="alert">
+                                    There is no data here!
+                                </div>
+                            @endif
                             {{-- @if ( !empty( $userCartData ) && $userCartData->count() > 0 )
                                 @foreach ($userCartData as $cartData)
                                 <tr>
@@ -218,28 +224,6 @@
             });
 
 
-            // delete cart data
-            $(document).on('click', '.btn-remove', function(){
-                var id = $(this).data('id');
-
-                 $.ajax({
-                     method: "POST",
-                     url: "{{ route('delete.cart') }}",
-                     data: { id: id },
-                     dataType: "json",
-                     success: function(data){
-                        console.log(data);
-
-                        cart_section_data();
-                        header();
-                     },
-                     error: function(err){
-                        console.log(err);
-                     }
-               })
-            })
-
-
          // header cart products show
            function header () {
             $.ajax({
@@ -267,11 +251,11 @@
                                     </div>
 
                                     <figure class="product-image-container">
-                                        <a href="product.html" class="product-image">
-                                            <img src="`+ item.thumbnail +`" alt="product">
+                                        <a href="{{ url('/product-details/`+ item.slug +`') }} " class="product-image">
+                                            <img src="{{ asset('`+ item.thumbnail +`') }}" alt="product">
                                         </a>
                                     </figure>
-                                    <a href="" class="btn-remove" title="Remove Product"><i class="icon-close"></i></a>
+                                    <a href="{{ url('/delete/cart/`+ item.cart_id +`') }}" class="btn-remove" title="Remove Product"><i class="icon-close"></i></button>
                                 </div>`;
                             });
                         }  
@@ -327,7 +311,7 @@
                                     </div>
                                 </td>
                                 <td class="total-col">$`+ (item.price * item.qty).toFixed(2) +`</td>
-                                <td class="remove-col"><button class="btn-remove" data-id="${item.cart_id}"><i class="icon-close"></i></button></td>
+                                <td class="remove-col"><a href="{{ url('/delete/cart/`+ item.cart_id +`') }}" class="btn-remove" data-id="${item.cart_id}"><i class="icon-close"></i></a></td>
                             </tr>`;
                     });
 
