@@ -9,6 +9,8 @@ class Category extends Model
 {
     use HasFactory;
 
+    protected $table = 'categories';
+
     static public function getRecord(){
         return self::where('status', 1)->where('is_delete', 0)->get();
     }

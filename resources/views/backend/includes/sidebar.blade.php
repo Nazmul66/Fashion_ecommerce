@@ -48,6 +48,12 @@
           </li>
 
           <li class="menu-item">
+            <a href="{{ route('discount.manage') }}" class="menu-link">
+              <div data-i18n="Container">Discount</div>
+            </a>
+          </li>
+
+          <li class="menu-item">
             <a href="{{ route('color.manage') }}" class="menu-link">
               <div data-i18n="Container">Colors</div>
             </a>
@@ -71,12 +77,6 @@
                           <div data-i18n="Container">-- Create Product</div>
                         </a>
                     </li>
-
-                    {{-- <li class="menu-item">
-                        <a href="{{ route('product.edit') }}" class="menu-link">
-                          <div data-i18n="Container">-- Edit Product</div>
-                        </a>
-                    </li> --}}
                 </ul>
           </li>
 

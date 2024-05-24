@@ -19,6 +19,7 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->alias([
             "admin"  => \App\Http\Middleware\Admin::class,
+            'Checkout' => \App\Http\Middleware\Checkout::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {

@@ -226,10 +226,11 @@ class CartController extends Controller
         // dd($id);
         $cart = Cart::find($id);
         // dd($cart);
-
+        
         $cart->delete();
-
+        
         return redirect()->back();
-
+        
     }
+
 }

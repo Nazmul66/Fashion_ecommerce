@@ -54,58 +54,20 @@
                         <tbody id='cart_show'>    
                             
                             @if( !$userCartData )
-                                <div class="alert alert-danger text-center" role="alert">
-                                    There is no data here!
-                                </div>
-                            @endif
-                            {{-- @if ( !empty( $userCartData ) && $userCartData->count() > 0 )
-                                @foreach ($userCartData as $cartData)
                                 <tr>
-                                    <td class="product-col">
-                                        <div class="product">
-                                            <figure class="product-media">
-                                                <a href="{{ route('product.details', $cartData->slug) }}">
-                                                    <img src="{{ asset($cartData->thumbnail) }}" alt="Product image">
-                                                </a>
-                                            </figure>
-                                
-                                            <h3 class="product-title">
-                                                <a href="{{ route('product.details', $cartData->slug) }}">{{ $cartData->title }}</a>
-                                            </h3>
+                                    <td colspan="4">
+                                        <div class="alert alert-danger text-center" role="alert">
+                                            There is no data here!
                                         </div>
                                     </td>
-                                    <td class="price-col">${{ number_format($cartData->price) }}</td>
-                                    <td class="quantity-col">
-                                        <div class="cart-product-quantity">
-                                            <input type="hidden" value="{{ $cartData->product_id }}" class="product_id">
-                                            <input type="number" class="form-control prdt_qty" value="{{ $cartData->qty }}" min="1" max="10" step="1" data-decimals="0" required>
-                                        </div>
-                                    </td>
-                                    <td class="total-col">${{ number_format($cartData->price * $cartData->qty, 2) }}</td>
-                                    <td class="remove-col"><button class="btn-remove" data-id="{{ $cartData->cart_id }}"><i class="icon-close"></i></button></td>
                                 </tr>
-                                @endforeach
-                            @else
-                              <td colspan="5">
-                                <div class="alert alert-danger text-center" role="alert">
-                                    There is no data here!
-                                  </div>
-                              </td>
-                            @endif --}}
+                            @endif
+                            
                         </tbody>
                     </table><!-- End .table table-wishlist -->
 
                     <div class="cart-bottom">
-                        <div class="cart-discount">
-                            <form action="#">
-                                <div class="input-group">
-                                    <input type="text" class="form-control" required placeholder="coupon code">
-                                    <div class="input-group-append">
-                                        <button class="btn btn-outline-primary-2" type="submit"><i class="icon-long-arrow-right"></i></button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
+                        
                     </div>
                 </div><!-- End .col-lg-9 -->
 
@@ -123,54 +85,24 @@
                                         @endif
                                     </td>
                                 </tr><!-- End .summary-subtotal -->
-                                <tr class="summary-shipping">
-                                    <td>Shipping:</td>
-                                    <td>&nbsp;</td>
-                                </tr>
-
-                                <tr class="summary-shipping-row">
-                                    <td>
-                                        <div class="custom-control custom-radio">
-                                            <input type="radio" id="free-shipping" name="shipping" class="custom-control-input">
-                                            <label class="custom-control-label" for="free-shipping">Free Shipping</label>
-                                        </div><!-- End .custom-control -->
-                                    </td>
-                                    <td>$0.00</td>
-                                </tr><!-- End .summary-shipping-row -->
-
-                                <tr class="summary-shipping-row">
-                                    <td>
-                                        <div class="custom-control custom-radio">
-                                            <input type="radio" id="standart-shipping" name="shipping" class="custom-control-input">
-                                            <label class="custom-control-label" for="standart-shipping">Standart:</label>
-                                        </div><!-- End .custom-control -->
-                                    </td>
-                                    <td>$10.00</td>
-                                </tr><!-- End .summary-shipping-row -->
-
-                                <tr class="summary-shipping-row">
-                                    <td>
-                                        <div class="custom-control custom-radio">
-                                            <input type="radio" id="express-shipping" name="shipping" class="custom-control-input">
-                                            <label class="custom-control-label" for="express-shipping">Express:</label>
-                                        </div><!-- End .custom-control -->
-                                    </td>
-                                    <td>$20.00</td>
-                                </tr><!-- End .summary-shipping-row -->
-
-                                <tr class="summary-shipping-estimate">
-                                    <td>Estimate for Your Country<br> <a href="dashboard.html">Change address</a></td>
-                                    <td>&nbsp;</td>
-                                </tr><!-- End .summary-shipping-estimate -->
 
                                 <tr class="summary-total">
                                     <td>Total:</td>
-                                    <td>$160.00</td>
+                                    <td>
+                                        @if( !empty($userCartData ) )
+                                            ${{number_format($total_cart_sum, 2) }}
+                                        @endif
+                                    </td>
                                 </tr><!-- End .summary-total -->
                             </tbody>
                         </table><!-- End .table table-summary -->
 
-                        <a href="checkout.html" class="btn btn-outline-primary-2 btn-order btn-block">PROCEED TO CHECKOUT</a>
+                        @if ( Auth::check() )
+                            <a href="{{ route('checkout') }}" class="btn btn-outline-primary-2 btn-order btn-block">PROCEED TO CHECKOUT</a>
+                        @else
+                            <a href="{{ route('login') }}" class="btn btn-outline-primary-2 btn-order btn-block">PROCEED TO CHECKOUT</a>
+                        @endif
+
                     </div><!-- End .summary -->
 
                     <a href="category.html" class="btn btn-outline-dark-2 btn-block mb-3"><span>CONTINUE SHOPPING</span><i class="icon-refresh"></i></a>
@@ -208,6 +140,7 @@
                             
                             // Update the cart subtotal
                             $('.summary-subtotal td:last-child').text('$' + (res.cartTotal).toFixed(2));
+                            $('.summary-total td:last-child').text('$' + (res.cartTotal).toFixed(2));
                             $('.cart-total-price').text('$' + (res.cartTotal).toFixed(2));
 
                             header();
@@ -318,7 +251,7 @@
                     } else {
                         tbody = `
                             <tr>
-                                <td colspan="5">
+                                <td colspan="4">
                                     <div class="alert alert-danger text-center" role="alert">
                                         There is no data here!
                                     </div>

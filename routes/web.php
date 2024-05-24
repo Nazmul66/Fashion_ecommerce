@@ -8,6 +8,7 @@ use App\Http\Controllers\Backend\SubCategoryController;
 use App\Http\Controllers\Backend\BrandController;
 use App\Http\Controllers\Backend\ColorController;
 use App\Http\Controllers\Backend\ProductController;
+use App\Http\Controllers\Backend\DiscountController;
 
 // Route::get('/', function(){
 //      return 'hello';
@@ -61,6 +62,15 @@ Route::group(['prefix' => '/admin', 'middleware' => ['auth', 'admin']], function
         Route::get('/delete/{id}', [SubCategoryController::class, 'destroy'])->name('subCategory.delete');
     });
 
+    //__  Discount  __//
+    Route::group(['prefix' => '/discount'], function(){
+        Route::get('/manage', [DiscountController::class, 'manage'])->name('discount.manage');
+        Route::post('/store', [DiscountController::class, 'store'])->name('discount.store');
+        Route::post('/update/{id}', [DiscountController::class, 'update'])->name('discount.update');
+        Route::get('/delete/{id}', [DiscountController::class, 'destroy'])->name('discount.delete');
+        Route::post('/checkout/discount-code', [DiscountController::class, 'discount_code'])->name('discount.code'); // API call
+    });
+
     //__  Brand  __//
     Route::group(['prefix' => '/brand'], function(){
         Route::get('/manage', [BrandController::class, 'manage'])->name('brand.manage');
@@ -110,6 +120,10 @@ Route::group(['prefix' => '/admin', 'middleware' => ['auth', 'admin']], function
 use App\Http\Controllers\Frontend\FrontendController;
 use App\Http\Controllers\Frontend\ProductsController;
 use App\Http\Controllers\Frontend\CartController;
+use App\Http\Controllers\Frontend\CheckoutController;
+
+
+
 
 Route::get('/', [FrontendController::class, 'home'])->name('home');
 Route::post('/get-product-filter', [ProductsController::class, 'getProductFilter'])->name('get.product.filter');
@@ -125,6 +139,7 @@ Route::get('getCart-data', [CartController::class, 'getCartData'])->name("getCar
 Route::post('/cart/update-quantity', [CartController::class, 'updateCartQuantity'])->name('cart.updateQuantity'); // API call
 Route::get('/delete/cart/{id}', [CartController::class, 'deleteCart'])->name('delete.cart'); // API call
 
-
+// Checkout pages
+Route::get('/checkout', [CheckoutController::class, 'checkout'])->middleware(['auth', 'Checkout'])->name('checkout');
 
 

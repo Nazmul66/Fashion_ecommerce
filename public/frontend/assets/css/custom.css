@@ -1,3 +1,6 @@
 .active_color{
     border: 2px solid #000 !important;
 }
+.checkout .form-control{
+    margin-bottom: 0 !important;
+}

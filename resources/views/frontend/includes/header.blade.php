@@ -24,7 +24,7 @@
                             <li><a href="#">Eur</a></li>
                             <li><a href="#">Usd</a></li>
                         </ul>
-                    </div><!-- End .header-menu -->
+                    </div>
                 </div><!-- End .header-dropdown -->
 
                 <div class="header-dropdown">
@@ -35,8 +35,8 @@
                             <li><a href="#">French</a></li>
                             <li><a href="#">Spanish</a></li>
                         </ul>
-                    </div><!-- End .header-menu -->
-                </div><!-- End .header-dropdown -->
+                    </div>
+                </div>
             </div><!-- End .header-left -->
 
             <div class="header-right">
@@ -51,9 +51,9 @@
                             <li><a href="#signin-modal" data-toggle="modal"><i class="icon-user"></i>Login</a></li>
                         </ul>
                     </li>
-                </ul><!-- End .top-menu -->
-            </div><!-- End .header-right -->
-        </div><!-- End .container -->
+                </ul>
+            </div>
+        </div>
     </div><!-- End .header-top -->
 
     <div class="header-middle sticky-header">
@@ -121,7 +121,7 @@
                                                 <li><a href="product-fullwidth.html">Full Width</a></li>
                                                 <li><a href="product-masonry.html">Masonry Sticky Info</a></li>
                                             </ul>
-                                        </div><!-- End .menu-col -->
+                                        </div>
                                     </div><!-- End .col-md-6 -->
 
                                     <div class="col-md-6">
@@ -130,13 +130,13 @@
                                                 <img src="{{ asset('public/frontend/assets/images/menu/banner-2.jpg') }}" alt="Banner">
 
                                                 <div class="banner-content banner-content-bottom">
-                                                    <div class="banner-title text-white">New Trends<br><span><strong>spring 2019</strong></span></div><!-- End .banner-title -->
-                                                </div><!-- End .banner-content -->
+                                                    <div class="banner-title text-white">New Trends<br><span><strong>spring 2019</strong></span></div>
+                                                </div>
                                             </a>
-                                        </div><!-- End .banner -->
-                                    </div><!-- End .col-md-6 -->
-                                </div><!-- End .row -->
-                            </div><!-- End .megamenu megamenu-sm -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </li>
                     </ul>
                 </nav><!-- End .main-nav -->
@@ -149,7 +149,7 @@
                         <div class="header-search-wrapper">
                             <label for="q" class="sr-only">Search</label>
                             <input type="search" class="form-control" name="q" id="q" placeholder="Search in..." required>
-                        </div><!-- End .header-search-wrapper -->
+                        </div>
                     </form>
                 </div><!-- End .header-search -->
 
@@ -170,31 +170,7 @@
                                 </div>
                             @endif
 
-                            {{-- @foreach ( $carts as $cart) --}}
-
-                            {{-- @endforeach --}}
-
-
-                            {{-- <div class="product">
-                                <div class="product-cart-details">
-                                    <h4 class="product-title">
-                                        <a href="product.html">Blue utility pinafore denim dress</a>
-                                    </h4>
-
-                                    <span class="cart-product-info">
-                                        <span class="cart-product-qty">1</span>
-                                        x $76.00
-                                    </span>
-                                </div><!-- End .product-cart-details -->
-
-                                <figure class="product-image-container">
-                                    <a href="product.html" class="product-image">
-                                        <img src="{{ asset('public/frontend/assets/images/products/cart/product-2.jpg') }}" alt="product">
-                                    </a>
-                                </figure>
-                                <a href="#" class="btn-remove" title="Remove Product"><i class="icon-close"></i></a>
-                            </div><!-- End .product --> --}}
-                        </div><!-- End .cart-product -->
+                        </div>
 
                         <div class="dropdown-cart-total">
                             <span>Total</span>
@@ -206,7 +182,7 @@
 
                         <div class="dropdown-cart-action">
                             <a href="{{ url('/cart-show') }}" class="btn btn-primary">View Cart</a>
-                            <a href="checkout.html" class="btn btn-outline-primary-2"><span>Checkout</span><i class="icon-long-arrow-right"></i></a>
+                            <a href="{{ route('checkout') }}" class="btn btn-outline-primary-2"><span>Checkout</span><i class="icon-long-arrow-right"></i></a>
                         </div>
 
                     </div>
