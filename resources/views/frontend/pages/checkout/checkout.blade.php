@@ -90,8 +90,23 @@
                                 </div><!-- End .col-sm-6 -->
                             </div><!-- End .row -->
 
-                            <label>Email address *</label>
-                            <input type="email" class="form-control" required>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <label>Email address *</label>
+                                    <input type="email" class="form-control" required>
+                                </div>
+
+                                <div class="col-sm-6">
+                                    <label>Shipping Charge *</label>
+                                    <select class="form-control" id="shipping" aria-label="Default select example">
+                                        <option value="0" selected>Free Shipping Cost</option>
+
+                                        @foreach ($shippingCharges as $shipping)
+                                            <option value="{{ $shipping->price }}">{{ $shipping->name }}</option> 
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
 
                             <div class="custom-control custom-checkbox">
                                 <input type="checkbox" class="custom-control-input" id="checkout-create-acc">
@@ -145,17 +160,18 @@
                                     </tr>
                                     <tr>
                                         <td>Discount:</td>
-                                        <td>$<span id="discount_amount">0.00</span></td>
-                                        <input type="text" id="discount_price" name="discount_price">
+                                        <td>- $<span id="discount_amount">0.00</span></td>
+                                        <input type="text" id="discount_price" value="0" name="discount_price">
                                     </tr>
                                     <tr>
                                         <td>Shipping:</td>
-                                        <td>$<span id="shipping_amount">0.00</span></td>
+                                        <td>+ $<span id="shipping_amount">0.00</span></td>
+                                        <input type="text" id="shipping_price" value="0" name="shipping_price">
                                     </tr>
                                     <tr class="summary-total">
                                         <td>Total:</td>
                                         <td>$<span data-val="{{ $total_cart_sum }}" id="total_amount">{{ number_format($total_cart_sum, 2) }}</span></td>
-                                        <input type="text" id="total_cart_price" name="total_cart_price">
+                                        <input type="text" id="total_cart_price" value="{{ $total_cart_sum }}" name="total_cart_price">
                                     </tr><!-- End .summary-total -->
                                 </tbody>
                             </table><!-- End .table table-summary -->
@@ -234,36 +250,31 @@
                     url: "{{ route('discount.code') }}", 
                     data: { discount_code : discount_code },
                     success: function( data ){
-                        console.log(data);
-                            var total = $('#total_amount').data('val')
-                            //  console.log(total);
+                        // console.log(data);
+                        var shipping = $('#shipping_price').val();
+                        var final_amount = parseInt(shipping) + parseInt(data.total) ;
 
-                        if( data.status === true ){
-                          var discount = data.message; 
-
-                           if( discount.type === 'amount' ){
-                              var num = parseInt(discount.percent_amount);
-                              $('#discount_amount').text(num.toFixed(2))
-                              $('#discount_price').val(discount.percent_amount)
-                              $('#total_amount').text((total - num).toFixed(2));
-                              $('#total_cart_price').val(total - num);
-                           }
-                           else if( ( discount.type === 'percent' ) ){
-                              var num = parseInt(discount.percent_amount);
-                              $('#discount_amount').text(num.toFixed(2))
-                              $('#discount_price').val(discount.percent_amount)
-                              $('#total_amount').text((total - num).toFixed(2));
-                              $('#total_cart_price').val(total - num);
-                           }
-                        }
-                        else{
-                            alert(data.message);
-                        }
+                        $('#discount_amount').html(parseInt(data.discount_amount).toFixed(2))
+                        $('#total_amount').html(final_amount.toFixed(2));
+                        $('#total_cart_price').val(parseInt(data.total));
+                        $('#discount_price').val(parseInt(data.discount_amount));
                     },
                     error: function( err ){
                         console.log(err);
                     },
                 })
+            })
+
+
+            // Shipping Charges
+            $('#shipping').change(function(){
+                var price = parseInt($(this).val());
+                var total_price = parseInt($('#total_cart_price').val());
+                console.log(price + total_price);
+
+                $('#total_amount').html((total_price + price).toFixed(2));
+                $('#shipping_amount').html(price.toFixed(2));
+                $('#shipping_price').val(price);
             })
         })
     </script>

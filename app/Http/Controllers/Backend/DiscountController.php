@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Discount;
+use App\Models\Cart;
 
 class DiscountController extends Controller
 {
@@ -70,20 +71,59 @@ class DiscountController extends Controller
     public function discount_code(Request $request)
     {
     //    dd($request->discount_code);
+       $carts = Cart::getCartUserData();
+       $subTotal = 0; 
+       foreach( $carts as $cart ){
+           $subTotal += $cart->price * $cart->qty;
+       }
+
 
        $discount_code = Discount::checkDiscountData($request->discount_code);
 
        if( !empty( $discount_code ) ){
-            return response()->json([
-                'status' => true,
-                'message' => $discount_code
-        ]);
-       }
-       else{
+          if( $discount_code->type === "amount" ){
+              $discount_amount   = $discount_code->percent_amount;
+              $total             = $subTotal - $discount_code->percent_amount;
+          }
+          else if( $discount_code->type === "percent" ){
+              $discount_amount     = $discount_code->percent_amount;
+              $percentage_amount   = ($subTotal * $discount_code->percent_amount) / 100;
+              $total               = $subTotal - $percentage_amount;
+          }
+
           return response()->json([
-               'status' => false,
-               'message' => 'Coupon already exists'
-          ]);
+            'status' => true,
+            'discount_amount' => $discount_amount,
+            'total' => $total,
+        ]);
+
        }
+
+       else{
+            return response()->json([
+                'status' => false,
+                'discount_amount' => 0,
+                'total' => $subTotal,
+            ]);
+       }
+
+
+
+
+
+
+
+    //    if( !empty( $discount_code ) ){
+    //         return response()->json([
+    //             'status' => true,
+    //             'message' => $discount_code
+    //     ]);
+    //    }
+    //    else{
+    //       return response()->json([
+    //            'status' => false,
+    //            'message' => 'Coupon already exists'
+    //       ]);
+    //    }
     }
 }

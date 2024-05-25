@@ -54,6 +54,12 @@
           </li>
 
           <li class="menu-item">
+            <a href="{{ route('shipping.manage') }}" class="menu-link">
+              <div data-i18n="Container">Shipping Charge</div>
+            </a>
+          </li>
+
+          <li class="menu-item">
             <a href="{{ route('color.manage') }}" class="menu-link">
               <div data-i18n="Container">Colors</div>
             </a>

@@ -9,6 +9,7 @@ use App\Http\Controllers\Backend\BrandController;
 use App\Http\Controllers\Backend\ColorController;
 use App\Http\Controllers\Backend\ProductController;
 use App\Http\Controllers\Backend\DiscountController;
+use App\Http\Controllers\Backend\ShippingController;
 
 // Route::get('/', function(){
 //      return 'hello';
@@ -69,6 +70,15 @@ Route::group(['prefix' => '/admin', 'middleware' => ['auth', 'admin']], function
         Route::post('/update/{id}', [DiscountController::class, 'update'])->name('discount.update');
         Route::get('/delete/{id}', [DiscountController::class, 'destroy'])->name('discount.delete');
         Route::post('/checkout/discount-code', [DiscountController::class, 'discount_code'])->name('discount.code'); // API call
+    });
+
+    //__  Shipping Charge  __//
+    Route::group(['prefix' => '/shipping-charge'], function(){
+        Route::get('/manage', [ShippingController::class, 'manage'])->name('shipping.manage');
+        Route::post('/store', [ShippingController::class, 'store'])->name('shipping.store');
+        Route::post('/update/{id}', [ShippingController::class, 'update'])->name('shipping.update');
+        Route::get('/delete/{id}', [ShippingController::class, 'destroy'])->name('shipping.delete');
+        Route::post('/checkout/shipping-cost', [ShippingController::class, 'shippingCost'])->name('shipping.cost');
     });
 
     //__  Brand  __//
