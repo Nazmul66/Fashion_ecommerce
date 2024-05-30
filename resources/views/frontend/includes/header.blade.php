@@ -31,9 +31,15 @@
                     <a href="#">Eng</a>
                     <div class="header-menu">
                         <ul>
-                            <li><a href="#">English</a></li>
-                            <li><a href="#">French</a></li>
-                            <li><a href="#">Spanish</a></li>
+                            <li>
+                                <a href="#">English</a>
+                            </li>
+                            <li>
+                                <a href="#">French</a>
+                            </li>
+                            <li>
+                                <a href="#">Spanish</a>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -48,7 +54,17 @@
                             <li><a href="wishlist.html"><i class="icon-heart-o"></i>My Wishlist <span>(3)</span></a></li>
                             <li><a href="about.html">About Us</a></li>
                             <li><a href="contact.html">Contact Us</a></li>
-                            <li><a href="#signin-modal" data-toggle="modal"><i class="icon-user"></i>Login</a></li>
+                            <li>
+                                @if ( !empty(Auth::check()) )
+                                    <form method="POST" action="{{ route('logout') }}">
+                                        @csrf
+
+                                        <a href="{{ route('logout') }}" onclick="event.preventDefault(); this.closest('form').submit();"><i class="icon-user"></i>Sign Out</a>
+                                    </form>
+                                @else
+                                   <a href="#signin-modal" data-toggle="modal"><i class="icon-user"></i>Sign In</a>
+                                @endif
+                            </li>
                         </ul>
                     </li>
                 </ul>

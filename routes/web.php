@@ -139,17 +139,18 @@ Route::get('/', [FrontendController::class, 'home'])->name('home');
 Route::post('/get-product-filter', [ProductsController::class, 'getProductFilter'])->name('get.product.filter');
 Route::get('/product/{catslug?}/{subslug?}', [ProductsController::class, 'getCategory'])->name('get.category');
 
-// product details page
+//__ product details page __//
 Route::get('/product-details/{slug}', [ProductsController::class, 'productDetails'])->name('product.details');
 
-// for cart controller
+//__ for cart controller __//
 Route::post('/product/add-to-cart', [CartController::class, 'productCart'])->name('product.cart');
 Route::get('cart-show', [CartController::class, 'cartShow'])->name('cart.show');
 Route::get('getCart-data', [CartController::class, 'getCartData'])->name("getCart.data");  // API call
 Route::post('/cart/update-quantity', [CartController::class, 'updateCartQuantity'])->name('cart.updateQuantity'); // API call
 Route::get('/delete/cart/{id}', [CartController::class, 'deleteCart'])->name('delete.cart'); // API call
 
-// Checkout pages
+//__ Checkout pages __//
 Route::get('/checkout', [CheckoutController::class, 'checkout'])->middleware(['auth', 'Checkout'])->name('checkout');
+Route::post('/checkout/place-order', [CheckoutController::class, 'checkout_place_order'])->name('checkout.place.order');
 
 

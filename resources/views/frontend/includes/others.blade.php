@@ -77,18 +77,27 @@
                             <li class="nav-item">
                                 <a class="nav-link" id="register-tab" data-toggle="tab" href="#register" role="tab" aria-controls="register" aria-selected="false">Register</a>
                             </li>
-                        </ul>
+                        </ul>                                
+
+                      @if ( empty(Auth::check()) )
                         <div class="tab-content" id="tab-content-5">
+
+                           {{-- Login Form --}}
                             <div class="tab-pane fade show active" id="signin" role="tabpanel" aria-labelledby="signin-tab">
-                                <form action="#">
+                      
+                                <form method="POST" action="{{ route('login') }}">
+                                    @csrf
+
                                     <div class="form-group">
                                         <label for="singin-email">Username or email address *</label>
-                                        <input type="text" class="form-control" id="singin-email" name="singin-email" required>
+                                        <input type="email" class="form-control" id="singin-email" name="email" value="{{ old('email') }}" required>
+                                        <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
                                     </div><!-- End .form-group -->
 
                                     <div class="form-group">
-                                        <label for="singin-password">Password *</label>
-                                        <input type="password" class="form-control" id="singin-password" name="singin-password" required>
+                                        <label for="password">Password *</label>
+                                        <input type="password" class="form-control" id="password" name="password" required>
+                                        <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
                                     </div><!-- End .form-group -->
 
                                     <div class="form-footer">
@@ -105,6 +114,7 @@
                                         <a href="#" class="forgot-link">Forgot Your Password?</a>
                                     </div><!-- End .form-footer -->
                                 </form>
+
                                 <div class="form-choice">
                                     <p class="text-center">or sign in with</p>
                                     <div class="row">
@@ -119,22 +129,34 @@
                                                 <i class="icon-facebook-f"></i>
                                                 Login With Facebook
                                             </a>
-                                        </div><!-- End .col-6 -->
-                                    </div><!-- End .row -->
-                                </div><!-- End .form-choice -->
-                            </div><!-- .End .tab-pane -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
 
+                            {{-- Register Form --}}
                             <div class="tab-pane fade" id="register" role="tabpanel" aria-labelledby="register-tab">
-                                <form action="#">
-                                    <div class="form-group">
-                                        <label for="register-email">Your email address *</label>
-                                        <input type="email" class="form-control" id="register-email" name="register-email" required>
-                                    </div><!-- End .form-group -->
+
+                                <form method="POST" action="{{ route('register') }}">
+                                    @csrf
 
                                     <div class="form-group">
-                                        <label for="register-password">Password *</label>
-                                        <input type="password" class="form-control" id="register-password" name="register-password" required>
-                                    </div><!-- End .form-group -->
+                                        <label for="email">Your email address *</label>
+                                        <input type="email" class="form-control" id="email" name="email" required value="{{ old('email') }}">
+                                        <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="password">Password *</label>
+                                        <input type="password" class="form-control" id="password" name="password" required>
+                                        <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="password_confirmation">Confirm Password *</label>
+                                        <input type="password" class="form-control" id="password_confirmation" name="password_confirmation" required>
+                                        <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
+                                    </div>
 
                                     <div class="form-footer">
                                         <button type="submit" class="btn btn-outline-primary-2">
@@ -166,7 +188,10 @@
                                     </div><!-- End .row -->
                                 </div><!-- End .form-choice -->
                             </div><!-- .End .tab-pane -->
+
                         </div><!-- End .tab-content -->
+                      @endif
+
                     </div><!-- End .form-tab -->
                 </div><!-- End .form-box -->
             </div><!-- End .modal-body -->

@@ -142,12 +142,20 @@
 
                                         @if( !empty($cart) ) 
                                             @foreach (App\Models\Product_size::getAllSizeRecord($singleProduct->id) as $size)
-                                                <option data-price="{{ $size->price }}" value="{{ $size->id }}" @if( $cart->size_id == $size->id ) selected @endif>@if( $size->name ) {{ $size->name }} ( {{ number_format($size->price) }} ) @endif</option>
+                                                <option data-price="{{ $size->price }}" value="{{ $size->id }}" @if( $cart->size_id == $size->id ) selected @endif>
+                                                    @if( $size->name ) 
+                                                        {{ $size->name }} ( {{ number_format($size->price) }} ) 
+                                                    @endif
+                                                </option>
                                             @endforeach
 
                                         @else
                                             @foreach (App\Models\Product_size::getAllSizeRecord($singleProduct->id) as $size)
-                                                <option data-price="{{ $size->price }}" value="{{ $size->id }}">@if( $size->name ) {{ $size->name }} ( {{ number_format($size->price) }} ) @endif</option>
+                                                <option data-price="{{ $size->price }}" value="{{ $size->id }}">
+                                                    @if( $size->name ) 
+                                                        {{ $size->name }} ( {{ number_format($size->price) }} ) 
+                                                    @endif
+                                                </option>
                                             @endforeach
                                         @endif 
 

@@ -114,5 +114,16 @@
             </ul>
           </li>
        @endif
+
+       {{-- logout Form --}}
+       <li class="menu-item">
+          <form method="POST" action="{{ route('logout') }}" class="menu-link">
+            @csrf
+
+            <i class="menu-icon tf-icons bx bx-layout"></i>
+            <a href="{{ route('logout') }}" onclick="event.preventDefault(); this.closest('form').submit();" data-i18n="Container">Logout</a>
+          </form> 
+        </a>
+      </li>
     </ul>
   </aside>
