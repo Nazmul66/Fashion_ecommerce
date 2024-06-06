@@ -5,7 +5,7 @@
   class="light-style customizer-hide"
   dir="ltr"
   data-theme="theme-default"
-  data-assets-path="{{ asset('public/backend/assets/') }}"
+  data-assets-path="{{ asset('backend/assets/') }}"
   data-template="vertical-menu-template-free"
 >
   <head>
@@ -20,7 +20,7 @@
     <meta name="description" content="" />
 
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="{{ asset('public/backend/assets/img/favicon/favicon.ico') }}" />
+    <link rel="icon" type="image/x-icon" href="{{ asset('backend/assets/img/favicon/favicon.ico') }}" />
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -31,26 +31,26 @@
     />
 
     <!-- Icons. Uncomment required icon fonts -->
-    <link rel="stylesheet" href="{{ asset('public/backend/assets/vendor/fonts/boxicons.css') }}" />
+    <link rel="stylesheet" href="{{ asset('backend/assets/vendor/fonts/boxicons.css') }}" />
 
     <!-- Core CSS -->
-    <link rel="stylesheet" href="{{ asset('public/backend/assets/vendor/css/core.css') }}" class="template-customizer-core-css" />
-    <link rel="stylesheet" href="{{ asset('public/backend/assets/vendor/css/theme-default.css') }}" class="template-customizer-theme-css" />
-    <link rel="stylesheet" href="{{ asset('public/backend/assets/css/demo.css') }}" />
-    <link rel="stylesheet" href="{{ asset('public/backend/assets/css/style.css') }}" />
+    <link rel="stylesheet" href="{{ asset('backend/assets/vendor/css/core.css') }}" class="template-customizer-core-css" />
+    <link rel="stylesheet" href="{{ asset('backend/assets/vendor/css/theme-default.css') }}" class="template-customizer-theme-css" />
+    <link rel="stylesheet" href="{{ asset('backend/assets/css/demo.css') }}" />
+    <link rel="stylesheet" href="{{ asset('backend/assets/css/style.css') }}" />
 
     <!-- Vendors CSS -->
-    <link rel="stylesheet" href="{{ asset('public/backend/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css') }}" />
+    <link rel="stylesheet" href="{{ asset('backend/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css') }}" />
 
     <!-- Page CSS -->
     <!-- Page -->
-    <link rel="stylesheet" href="{{ asset('public/backend/assets/vendor/css/pages/page-auth.css') }}" />
+    <link rel="stylesheet" href="{{ asset('backend/assets/vendor/css/pages/page-auth.css') }}" />
     <!-- Helpers -->
-    <script src="{{ asset('public/backend/assets/vendor/js/helpers.js') }}"></script>
+    <script src="{{ asset('backend/assets/vendor/js/helpers.js') }}"></script>
 
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
-    <script src="{{ asset('public/backend/assets/js/config.js') }}"></script>
+    <script src="{{ asset('backend/assets/js/config.js') }}"></script>
   </head>
 
   <body>
@@ -184,18 +184,18 @@
 
     <!-- Core JS -->
     <!-- build:js assets/vendor/js/core.js -->
-    <script src="{{ asset('public/backend/assets/vendor/libs/jquery/jquery.js') }}"></script>
-    <script src="{{ asset('public/backend/assets/vendor/libs/popper/popper.js') }}"></script>
-    <script src="{{ asset('public/backend/assets/vendor/js/bootstrap.js') }}"></script>
-    <script src="{{ asset('public/backend/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js') }}"></script>
+    <script src="{{ asset('backend/assets/vendor/libs/jquery/jquery.js') }}"></script>
+    <script src="{{ asset('backend/assets/vendor/libs/popper/popper.js') }}"></script>
+    <script src="{{ asset('backend/assets/vendor/js/bootstrap.js') }}"></script>
+    <script src="{{ asset('backend/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js') }}"></script>
 
-    <script src="{{ asset('public/backend/assets/vendor/js/menu.js') }}"></script>
+    <script src="{{ asset('backend/assets/vendor/js/menu.js') }}"></script>
     <!-- endbuild -->
 
     <!-- Vendors JS -->
 
     <!-- Main JS -->
-    <script src="{{ asset('public/backend/assets/js/main.js') }}"></script>
+    <script src="{{ asset('backend/assets/js/main.js') }}"></script>
 
     <!-- Page JS -->
 

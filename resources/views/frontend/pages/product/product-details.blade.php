@@ -415,7 +415,7 @@
 
 @push('scripts')
 
-     <script src="{{ asset('public/frontend/assets/js/jquery.elevateZoom.min.js') }}"></script>
+     <script src="{{ asset('frontend/assets/js/jquery.elevateZoom.min.js') }}"></script>
 
 @endpush
 

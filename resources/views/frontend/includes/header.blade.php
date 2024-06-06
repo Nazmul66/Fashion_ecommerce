@@ -81,7 +81,7 @@
                 </button>
 
                 <a href="index.html" class="logo">
-                    <img src="{{ asset('public/frontend/assets/images/logo.png') }}" alt="Molla Logo" width="105" height="25">
+                    <img src="{{ asset('frontend/assets/images/logo.png') }}" alt="Molla Logo" width="105" height="25">
                 </a>
 
                 <nav class="main-nav">
@@ -143,7 +143,7 @@
                                     <div class="col-md-6">
                                         <div class="banner banner-overlay">
                                             <a href="category.html">
-                                                <img src="{{ asset('public/frontend/assets/images/menu/banner-2.jpg') }}" alt="Banner">
+                                                <img src="{{ asset('frontend/assets/images/menu/banner-2.jpg') }}" alt="Banner">
 
                                                 <div class="banner-content banner-content-bottom">
                                                     <div class="banner-title text-white">New Trends<br><span><strong>spring 2019</strong></span></div>

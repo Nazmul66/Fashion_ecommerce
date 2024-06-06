@@ -1,5 +1,5 @@
 
-<div class="footer-newsletter bg-image" style="background-image: url({{ asset('public/frontend/assets/images/backgrounds/bg-2.jpg') }})">
+<div class="footer-newsletter bg-image" style="background-image: url({{ asset('frontend/assets/images/backgrounds/bg-2.jpg') }})">
     <div class="container">
         <div class="heading text-center">
             <h3 class="title">Get The Latest Deals</h3>
@@ -27,7 +27,7 @@
             <div class="row">
                 <div class="col-sm-6 col-lg-3">
                     <div class="widget widget-about">
-                        <img src="{{ asset('public/frontend/assets/images/logo.png') }}" class="footer-logo" alt="Footer Logo" width="105" height="25">
+                        <img src="{{ asset('frontend/assets/images/logo.png') }}" class="footer-logo" alt="Footer Logo" width="105" height="25">
                         <p>Praesent dapibus, neque id cursus ucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. </p>
 
                         <div class="widget-call">

@@ -151,6 +151,22 @@ Route::get('/delete/cart/{id}', [CartController::class, 'deleteCart'])->name('de
 
 //__ Checkout pages __//
 Route::get('/checkout', [CheckoutController::class, 'checkout'])->middleware(['auth', 'Checkout'])->name('checkout');
+
 Route::post('/checkout/place-order', [CheckoutController::class, 'checkout_place_order'])->name('checkout.place.order');
+
+
+
+// SSLCOMMERZ Start
+Route::post('/pay-via-ajax', [CheckoutController::class, 'payViaAjax']);
+Route::post('/success', [CheckoutController::class, 'success']);
+Route::post('/fail', [CheckoutController::class, 'fail']);
+Route::post('/cancel', [CheckoutController::class, 'cancel']);
+Route::post('/ipn', [CheckoutController::class, 'ipn']);
+//SSLCOMMERZ END
+
+// Stripe Start
+Route::get('/stripe/success', [CheckoutController::class, 'stripe_success'])->name('stripe.success');
+Route::get('/stripe/cancel', [CheckoutController::class, 'stripe_cancel'])->name('stripe.cancel');
+// Stripe end
 
 

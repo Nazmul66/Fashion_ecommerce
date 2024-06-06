@@ -195,16 +195,23 @@
                                 </div>
 
                                 <div class="form-check d-flex align-items-center">
-                                    <input class="form-check-input" type="radio" name="payment_method" id="Paypal" value="Paypal" checked>
-                                    <label class="form-check-label" for="Paypal" style="margin: 0px 0px 0px 12px;">
+                                    <input class="form-check-input" type="radio" name="payment_method" id="paypal" value="paypal" checked>
+                                    <label class="form-check-label" for="paypal" style="margin: 0px 0px 0px 12px;">
                                        Paypal
+                                    </label>
+                                </div>
+                                
+                                <div class="form-check d-flex align-items-center">
+                                    <input class="form-check-input" type="radio" name="payment_method" id="stripe" value="stripe" checked>
+                                    <label class="form-check-label" for="stripe" style="margin: 0px 0px 0px 12px;">
+                                        Credit Card ( Stripe )
                                     </label>
                                 </div>
 
                                 <div class="form-check d-flex align-items-center">
-                                    <input class="form-check-input" type="radio" name="payment_method" id="stripe" value="stripe" checked>
-                                    <label class="form-check-label" for="stripe" style="margin: 0px 0px 0px 12px;">
-                                       Credit Card ( Stripe )
+                                    <input class="form-check-input" type="radio" name="payment_method" id="ssl_commercez" value="ssl_commercez" checked>
+                                    <label class="form-check-label" for="ssl_commercez" style="margin: 0px 0px 0px 12px;">
+                                       SSL Commercez
                                     </label>
                                 </div>
                             </div><!-- End .accordion -->
@@ -265,4 +272,19 @@
             })
         })
     </script>
+@endpush
+
+
+@push('scripts')
+<script>
+    (function (window, document) {
+        var loader = function () {
+            var script = document.createElement("script"), tag = document.getElementsByTagName("script")[0];
+            script.src = "https://sandbox.sslcommerz.com/embed.min.js?" + Math.random().toString(36).substring(7);
+            tag.parentNode.insertBefore(script, tag);
+        };
+
+        window.addEventListener ? window.addEventListener("load", loader, false) : window.attachEvent("onload", loader);
+    })(window, document);
+</script>
 @endpush
